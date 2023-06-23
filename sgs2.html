@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Encriptador</title>
+</head>
+<body>
+    <h1>Encriptador</h1>
+
+    <h3>Encriptar</h3>
+    <input type="text" id="inputEncriptar" placeholder="Ingrese un entero de cuatro dígitos">
+    <button onclick="encriptar()">Encriptar</button>
+    <p id="resultadoEncriptar"></p>
+
+    <h3>Desencriptar</h3>
+    <input type="text" id="inputDesencriptar" placeholder="Ingrese el entero encriptado">
+    <button onclick="desencriptar()">Desencriptar</button>
+    <p id="resultadoDesencriptar"></p>
+
+    <script>
+        function encriptar() {
+            var input = document.getElementById("inputEncriptar").value;
+
+            if (input.length !== 4 || isNaN(input)) {
+                alert("Ingrese un entero de cuatro dígitos válido.");
+                return;
+            }
+
+            var encriptado = "";
+
+            for (var i = 0; i < 4; i++) {
+                var digito = parseInt(input.charAt(i));
+                var encriptadoDigito = (digito + 7) % 10;
+                encriptado += encriptadoDigito;
+            }
+
+            var encriptadoFinal =
+                encriptado.charAt(2) +
+                encriptado.charAt(3) +
+                encriptado.charAt(0) +
+                encriptado.charAt(1);
+
+            document.getElementById("resultadoEncriptar").innerText = "Encriptado: " + encriptadoFinal;
+        }
+
+        function desencriptar() {
+            var input = document.getElementById("inputDesencriptar").value;
+
+            if (input.length !== 4 || isNaN(input)) {
+                alert("Ingrese un entero encriptado válido.");
+                return;
+            }
+
+            var desencriptado = "";
+
+            desencriptado +=
+                input.charAt(2) +
+                input.charAt(3) +
+                input.charAt(0) +
+                input.charAt(1);
+
+            var original = "";
+
+            for (var i = 0; i < 4; i++) {
+                var digito = parseInt(desencriptado.charAt(i));
+                var originalDigito = (digito + 3) % 10;
+                original += originalDigito;
+            }
+
+            document.getElementById("resultadoDesencriptar").innerText = "Desencriptado: " + original;
+        }
+    </script>
+</body>
+</html>
